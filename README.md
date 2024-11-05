@@ -1,5 +1,16 @@
 ## Description
 This is a sample Node.js Restful CRUD API which uses Express as web framework and MySQL as database.
+with 
+Azure Kubernetes Service, (You can find the manifest file in the repo - needs configuration with the actual values)
+Azure MySQL,
+Azure Devops, (Pipelines, Repos - You can find Dockerfile and azure-pipelines in the repo - needs configuration with the actual values)
+Azure Virtual Machine, (For Self Hosted Build Agent and Api Server connection)
+Azure Key Vault,
+Azure Private Endpoints 
+
+### Azure Architecture
+[crud-app-architecture.png]
+
 ### Required Components
 * Node.js v14
 * MySQL 8
