@@ -6,7 +6,8 @@
 - Azure Devops, (Pipelines, Repos - You can find Dockerfile and azure-pipelines in the repo - needs configuration with the actual values)
 - Azure Virtual Machine, (For Self Hosted Build Agent and Api Server connection)
 - Azure Key Vault,
-- Azure Private Endpoints 
+- Azure Private Endpoints
+- Azure Application Insights
 
 ### Azure Architecture
 ![CRUD App Architecture](./crud-app-architecture.png)
