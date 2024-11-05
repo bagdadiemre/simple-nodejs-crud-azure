@@ -9,7 +9,7 @@ Azure Key Vault,
 Azure Private Endpoints 
 
 ### Azure Architecture
-[crud-app-architecture.png]
+![CRUD App Architecture](./crud-app-architecture.png)
 
 ### Required Components
 * Node.js v14
