@@ -37,3 +37,7 @@ Open your browser, enter the url http://localhost:3000/
 | PUT | /customers/1 |	update Customer with id=1 |
 | DELETE | /customers/1 | remove Customer with id=1 |
 | DELETE | /customers | remove all Customers |
+
+
+Reference 
+https://learn.microsoft.com/en-us/azure/architecture/reference-architectures/containers/aro/ha-zr-aro
