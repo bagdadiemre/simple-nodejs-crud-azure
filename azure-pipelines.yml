@@ -1,0 +1,65 @@
+trigger:
+  branches:
+    include:
+      - master
+
+
+resources:
+- repo: self
+
+pool:
+  name: Default
+
+variables:
+- group: pipeline-variable-group
+- name: tag
+  value: '$(Build.BuildId)'  
+  
+stages:
+- stage: BuildAndPush
+  displayName: CI - Build and Push Docker Image
+  jobs:
+  - job: Build
+    displayName: Build and Push Docker Image
+    steps:
+    - task: Docker@2
+      displayName: Build Docker Image
+      inputs:
+        containerRegistry: '$(acr.service-connection-name)'  
+        repository: '$(acr.repo-name)'
+        command: build
+        dockerfile: '$(acr.dockerfile-path)'
+        tags: |
+          $(tag)
+
+    - task: Docker@2
+      displayName: Push Docker Image
+      inputs:
+        containerRegistry: '$(acr.service-connection-name)' 
+        repository: '$(acr.repo-name)' 
+        command: push
+        tags: |
+          $(tag)
+
+- stage: Deploy
+  displayName: CD - Deploy to AKS
+  jobs:
+    - deployment: Prod
+      displayName: Deploy Docker Image to AKS
+      environment: prod
+      strategy:
+        runOnce:
+          deploy:
+            steps:
+              - task: replacetokens@6
+                inputs:
+                  sources: '$(aks.manifest-path)'
+
+              - task: KubernetesManifest@1
+                inputs:
+                  action: 'deploy'
+                  connectionType: 'azureResourceManager'
+                  azureSubscriptionConnection: '$(azure.subs-connection-name)'
+                  azureResourceGroup: '$(aks.rg-name)'
+                  kubernetesCluster: '$(aks.cluster-name)'
+                  manifests: '$(aks.manifest-path)'
